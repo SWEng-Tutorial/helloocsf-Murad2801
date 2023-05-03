@@ -44,7 +44,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			//we got a message from client requesting to echo Hello, so we will send back to client Hello world!
 			else if(request.startsWith("echo Hello")){
-				message.setMessage("Hello World! Sent From Murad PC");
+				message.setMessage("Hello World!");
 				client.sendToClient(message);
 			}
 			else if(request.equals("send Submitters IDs")){
@@ -70,7 +70,7 @@ public class SimpleServer extends AbstractServer {
 			}else{
 				String str =message.getMessage();
 				message.setMessage(str);
-				sendToAllClients(str);
+				sendToAllClients(message);
 				//add code here to send received message to all clients.
 				//The string we received in the message is the message we will send back to all clients subscribed.
 				//Example:

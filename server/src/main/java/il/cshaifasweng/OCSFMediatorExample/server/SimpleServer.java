@@ -44,23 +44,33 @@ public class SimpleServer extends AbstractServer {
 			}
 			//we got a message from client requesting to echo Hello, so we will send back to client Hello world!
 			else if(request.startsWith("echo Hello")){
-				message.setMessage("Hello World!");
+				message.setMessage("Hello World! Sent From Murad PC");
 				client.sendToClient(message);
 			}
-			else if(request.startsWith("send Submitters IDs")){
-				//add code here to send submitters IDs to client
+			else if(request.equals("send Submitters IDs")){
+				message.setMessage("211912993, 206538928");
+				client.sendToClient(message);
 			}
 			else if (request.startsWith("send Submitters")){
-				//add code here to send submitters names to client
+				message.setMessage("Ram, Murad");
+				client.sendToClient(message);
 			}
-			else if (request.equals("what’s the time?")) {
-				//add code here to send the time to client
+			else if (request.equals("what's the time?")) {
+				long nano=message.getTimeStamp().getNano();
+				message.setMessage(message.getTimeStamp().toLocalTime().minusNanos(nano).toString());
+				client.sendToClient(message);
 			}
 			else if (request.startsWith("multiply")){
-				//add code here to multiply 2 numbers received in the message and send result back to client
-				//(use substring method as shown above)
-				//message format: "multiply n*m"
+				 String str=message.getMessage();
+				 String [] split=str.split(" ");
+				 split=split[1].split("\\*");
+				 int result=Integer.parseInt(split[0])*Integer.parseInt(split[1]);
+				 message.setMessage("The result of "+split[0]+"*"+split[1] +" is : "+result);
+				client.sendToClient(message);
 			}else{
+				String str =message.getMessage();
+				message.setMessage(str);
+				sendToAllClients(str);
 				//add code here to send received message to all clients.
 				//The string we received in the message is the message we will send back to all clients subscribed.
 				//Example:
